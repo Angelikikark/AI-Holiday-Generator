@@ -1,5 +1,4 @@
 function displayHoliday(response) {
-  console.log("holiday generated");
   new Typewriter("#holiday", {
     strings: response.data.answer,
     autoStart: true,
@@ -8,39 +7,50 @@ function displayHoliday(response) {
   });
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  let holidayFormElement = document.querySelector("#holiday-generator-form");
+
+  if (!holidayFormElement) {
+    console.error("Error: Form element not found!");
+    return;
+  }
+
+  holidayFormElement.addEventListener("submit", generateHoliday);
+});
+
 function generateHoliday(event) {
   event.preventDefault();
+
   let instructionsInput = document.querySelector("#user-instructions");
+
+  if (!instructionsInput) {
+    console.error("Error: Input field with ID 'user-instructions' not found!");
+    return;
+  }
+
   let apiKey = "t7o26f41bc212fa3436aa27360809eab";
-
-  let prompt =
-    "User instructions are: Generate a holiday about ${instructionsInput.value}";
   let context =
-    "You are a travel sales expert and love to provide a brief holiday infomration like best destination and things to do on the destination.Your mission is to generate a holiday destination and activities for that destination also provide package options in basic HTML.Make sure to follow the user instructions";
+    "You are a travel sales expert and love to provide a brief holiday information like best destinations and things to do there. Your mission is to generate a holiday destination and activities for that destination, also providing package options in basic HTML. Make sure to follow the user instructions.";
+  let prompt = `User instructions are: Generate a holiday about ${instructionsInput.value}`;
 
-  let apiURL =
-    "https://api.shecodes.io/ai/v1/generate?prompt=${prompt}&context=${context}&key=${APIkey";
-  console.log("Generate holiday");
+  let apiURL = `https://api.shecodes.io/ai/v1/generate?prompt=${encodeURIComponent(
+    prompt
+  )}&context=${encodeURIComponent(context)}&key=${apiKey}`;
 
-  console.log("PromPt:${prompt}");
-  console.log("Context:${context}");
+  let holidayElement = document.querySelector("#holiday");
 
-  axios.get(apiURL).then(displayHoliday);
+  if (!holidayElement) {
+    console.error("Error: Holiday element not found!");
+    return;
+  }
 
-  const holidayTypeInput = document.querySelector("input[type='text']").value;
+  holidayElement.classList.remove("hidden");
+  holidayElement.innerHTML = `<div class="generating">⏳ Generating a holiday about ${instructionsInput.value}...</div>`;
 
-  const holidayMessage = `Based on your love for ${holidayTypeInput}, here’s a holiday idea: Hiking in the Swiss Alps, exploring small villages, and enjoying local Swiss cuisine.`;
-
-  // Clear previous text
-  document.getElementById("holiday").innerHTML = "";
-
-  new Typewriter("#holiday", {
-    strings: [based],
-    autoStart: true,
-    delay: 75,
-    cursor: "",
-  });
+  axios
+    .get(apiURL)
+    .then(displayHoliday)
+    .catch((error) => {
+      console.error("API Request Failed:", error);
+    });
 }
-
-let holidayFormElement = document.querySelector("#holiday-generator-form");
-holidayFormElement.addEventListener("submit", generateHoliday);
