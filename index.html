@@ -2,8 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="src/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typewriter-effect/2.18.0/core.js"></script>
     <title>AI Holiday Generator</title>
   </head>
   <body>
@@ -11,7 +12,7 @@
       <header><h1>Welcome to the AI Holiday Generator</h1></header>
 
       <main>
-        <form>
+        <form id="holiday-generator-form">
           <input
             type="text"
             placeholder="Enter your desirable holiday type"
@@ -22,13 +23,7 @@
           />
           <input type="submit" class="submit-button" />
         </form>
-        <div class="holiday-description">
-          Based on your love for nature and adventure, here’s a holiday idea:
-          Hiking in the Swiss Alps, exploring small villages, and enjoying local
-          Swiss cuisine
-          <br />
-          Des pleurs dont l'aube t'arrose
-        </div>
+        <div class="holiday" id="holiday"></div>
       </main>
 
       <footer>
