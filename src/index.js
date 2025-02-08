@@ -30,7 +30,7 @@ function generateHoliday(event) {
 
   let apiKey = "t7o26f41bc212fa3436aa27360809eab";
   let context =
-    "You are a travel expert and love to provide a brief holiday information like best destinations and things to do there. Your mission is to generate a holiday destination and activities for that destination and recommented hotels,also keep the response no more than 10 paragraphs and be friendly. Make sure to follow the user instructions.";
+    "You are a travel expert and love to provide a brief holiday information like best destinations and things to do there. Your mission is to generate a holiday destination and activities for that destination,also keep the response sort 10-20 lines and be friendly.Keep your anwer sort and include a few recommended hotels. Make sure to follow the user instructions.";
   let prompt = `User instructions are: Generate a holiday about ${instructionsInput.value}`;
 
   let apiURL = `https://api.shecodes.io/ai/v1/generate?prompt=${encodeURIComponent(
